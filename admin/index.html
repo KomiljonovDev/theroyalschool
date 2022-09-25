@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>THE ROYAL SCHOOL</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://kit-pro.fontawesome.com/releases/v5.15.1/css/pro.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+</head>
+<script>
+    checkAdmin();
+    function checkAdmin(argument) {
+        admin_u_id = localStorage.getItem('admin_unique_id');
+        xhr = new XMLHttpRequest();
+        xhr.open('POST', `../api/v1/index.php?do=checkAdmin&admin_unique_id=${admin_u_id}`);
+        xhr.addEventListener('load', () => {
+            if(xhr.status === 200){
+                data = xhr.response;
+                obj = JSON.parse(data);
+                if (obj.code === 200) {
+                    if (obj.ok === true) {
+                        // window.location.href = "./admin.html";
+                    }else{
+                        window.location.href = "./login.html";
+                    }
+                } else {
+                    window.location.href = "./login.html";
+                }
+            }
+        });
+        xhr.send();
+    }
+        
+</script>
+<body style="background: #003352;">
+    <header>
+        <a href="../"><img src="../img/brandd.jpg" class="brand" alt=""></a>
+    </header>
+
+    <div class="container">
+        <button class="tablink" onclick="openPage('Home', this, '#fe9701')" id="defaultOpen">Yangilik qo'shish</button>
+        <button class="tablink" onclick="openPage('News', this, '#fe9701')">Qo'shilgan yangiliklar</button>
+        <button class="tablink" onclick="openPage('Contact', this, '#fe9701')">Test qo'shish</button>
+        <button class="tablink" onclick="openPage('About', this, '#fe9701')">Qo'shilgan testlar</button>
+
+        <div id="Home" class="tabcontent">
+            <div class="msg"></div>
+            <div class="login-box">
+                <!-- <h2>Yangilik qo'shish</h2> -->
+                <form id="newsForm">
+                    <div class="resultText text-success text-center fs-4"></div>
+                    <div class="user-box">
+                        <input type="text" name="title" required="">
+                        <label>Yangilik nomi</label>
+                    </div>
+                    <div class="user-box">
+                        <!-- <input type="file" name="" required=""> -->
+                        <!-- <label>Yangilik rasmi</label> -->
+                    </div>
+                    <label class="custom-file-upload mb-2">
+                        <input type="file" name="img"/>
+                        Yangilik rasmi
+                    </label>
+                    <div class="user-box">
+                        <textarea name="description" id="" cols="30" rows="5" placeholder="Yangilik tavsifi"></textarea>
+                        <!-- <label>Yangilik tavsifi</label> -->
+                    </div>
+                    <a href="#" id="sendNews">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                        Yangilik qo'shish
+                    </a>
+                </form>
+              </div>
+        </div>
+
+        <div id="News" class="tabcontent">
+            <div class="about my-5"> 
+                <div class="container newsList">
+                 
+                </div>
+              </div>
+        </div>
+
+        <div id="Contact" class="tabcontent">
+            <div class="login-box">
+                <!-- <h2>Test qo'shish</h2> -->
+                <form class="testForm">
+                    <div class="createQuiz">
+                        <div class="resultTexT"></div>
+                        <input type="text" class="hiddenInp" hidden>
+                        <div class="user-box">
+                            <input type="text" class="testName" name="" required="">
+                            <label>Test nomi</label>
+                        </div>
+                        <div class="user-box">
+                            <textarea name="" id="" cols="30" rows="5" class="testDesc" placeholder="Test tavsifi"></textarea>
+                        </div>
+                    </div>
+                  <div class="createQuestion">
+                    <h5 class="testSavol">1-test uchun savol</h5>
+                    <div class="user-box">
+                        <input type="text" class="question" name="" required="">
+                    </div>
+                    
+                    <h6 class="mt-5">Test uchun variantlar</h6>
+                    <div class="user-box">
+                        <input type="text" name="" required="" class="v1">
+                    </div>
+                    <div class="user-box">
+                        <input type="text" name="" required="" class="v2">
+                    </div>
+                    <div class="user-box">
+                        <input type="text" name="" required="" class="v3">
+                    </div>
+                    <h6 class="mt-4">To'g'ri javobni kiriting</h6>
+                    <div class="user-box">
+                        <input type="text" name="" required="" class="answ">
+                    </div>
+                </div>
+                <a href="#" class="sendTest">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    Yaratish
+                </a>
+                <a href="#" class="close">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    Yopish
+                </a>
+                </form>
+              </div>
+        </div>
+        <center>
+        <div id="About" class="tabcontent">
+            <div class="accordions">
+                
+              </div>
+            </center>
+        </div>
+    </div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
+<script src="../css js/script/admin.js"></script>
+</body>
+</html>
